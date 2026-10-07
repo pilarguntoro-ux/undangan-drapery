@@ -192,9 +192,10 @@
 @media(prefers-reduced-motion:reduce){.motion-ready #pembuka .lace-stationery,.motion-ready #penutup .lace-stationery,.motion-ready #acara .event,.motion-ready #acara .venue-art,.motion-ready #ucapan .form-shell{opacity:1!important;transform:none!important}}
 
 /* ===== Lush floral decor ===== */
-.bloom{position:absolute;pointer-events:none;z-index:2;opacity:.85;filter:drop-shadow(0 5px 5px rgba(0,0,0,.28));animation:bloom-float 8s ease-in-out infinite}
-@keyframes bloom-float{0%,100%{translate:0 0}50%{translate:0 -11px}}
+.spray{position:absolute;width:150px;height:200px;pointer-events:none;z-index:2;animation:spray-sway 8s ease-in-out infinite;transform-origin:50% 0}
+.spray img{position:absolute;filter:drop-shadow(0 5px 5px rgba(0,0,0,.28))}
+@keyframes spray-sway{0%,100%{translate:0 0;rotate:0deg}50%{translate:0 -9px;rotate:1.4deg}}
 /* Gold cameo glow */
 .cameo-frame{animation:cameo-glow 6s ease-in-out infinite}
 @keyframes cameo-glow{0%,100%{filter:drop-shadow(0 0 2px rgba(223,197,132,.1))}50%{filter:drop-shadow(0 0 14px rgba(223,197,132,.55))}}
-@media(prefers-reduced-motion:reduce){.bloom,.cameo-frame{animation:none!important}}
+@media(prefers-reduced-motion:reduce){.spray,.cameo-frame{animation:none!important}}

@@ -376,20 +376,32 @@
 </script>
 <script>
 (() => {
-  const flowers=['assets/floral-calla.png','assets/floral-cascade.png','assets/floral-calla-gold.png','assets/floral-cascade-gold.png','assets/floral-calla-rose.png','assets/floral-cascade-rose.png','assets/floral-calla-ivory.png','assets/floral-cascade-ivory.png'];
+  const sets=[
+    ['floral-cascade-gold.png','floral-calla-ivory.png','floral-calla-rose.png'],
+    ['floral-cascade-rose.png','floral-calla-gold.png','floral-calla-ivory.png'],
+    ['floral-cascade-ivory.png','floral-calla-rose.png','floral-calla-gold.png'],
+    ['floral-cascade-gold.png','floral-calla-rose.png','floral-cascade-ivory.png']
+  ];
+  const spots=[{c:'left:-10px;top:-6px;',m:0},{c:'right:-10px;bottom:-6px;',m:1}];
+  const lay=[
+    {c:'left:0;top:0;',w:'116px',r:'-9deg'},
+    {c:'left:14px;top:128px;',w:'48px',r:'16deg'},
+    {c:'left:102px;top:80px;',w:'44px',r:'-20deg'}
+  ];
   ['home','pembuka','mempelai','tanggal','love-story','acara','ucapan','penutup'].forEach((id,si)=>{
     const sec=document.getElementById(id);if(!sec)return;
     if(getComputedStyle(sec).position==='static')sec.style.position='relative';
-    [
-      {css:'left:-12px;top:12%;',w:'66px',r:'-15deg',f:0},
-      {css:'right:-14px;top:34%;',w:'76px',r:'20deg',f:1},
-      {css:'right:-10px;bottom:11%;',w:'58px',r:'-8deg',f:0},
-      {css:'left:-8px;bottom:16%;',w:'54px',r:'14deg',f:1}
-    ].forEach((s,i)=>{
-      const img=document.createElement('img');img.className='bloom';img.alt='';
-      img.src=flowers[(si*3+i*2+1)%flowers.length];
-      img.style.cssText=s.css+'width:'+s.w+';transform:rotate('+s.r+')'+(s.f?' scaleX(-1)':'')+';animation-duration:'+(7+i%4)+'s;animation-delay:'+(-(i*1.7))+'s;';
-      sec.appendChild(img);
+    const set=sets[si%sets.length];
+    spots.forEach((sp,pi)=>{
+      const box=document.createElement('div');box.className='spray';box.setAttribute('aria-hidden','true');
+      box.style.cssText=sp.c+(sp.m?'scale:-1 1;':'')+'animation-duration:'+(7+pi*2)+'s;animation-delay:'+(-(pi*2.2))+'s;';
+      lay.forEach((L,i)=>{
+        const img=document.createElement('img');img.alt='';
+        img.src='assets/'+set[i];
+        img.style.cssText=L.c+'width:'+L.w+';transform:rotate('+L.r+');';
+        box.appendChild(img);
+      });
+      sec.appendChild(box);
     });
   });
 })();
