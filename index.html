@@ -377,16 +377,14 @@
 <script>
 (() => {
   const sets=[
-    ['floral-cascade-gold.png','floral-calla-ivory.png','floral-calla-rose.png'],
-    ['floral-cascade-rose.png','floral-calla-gold.png','floral-calla-ivory.png'],
-    ['floral-cascade-ivory.png','floral-calla-rose.png','floral-calla-gold.png'],
-    ['floral-cascade-gold.png','floral-calla-rose.png','floral-cascade-ivory.png']
+    ['floral-cascade-gold.png','floral-calla-ivory.png'],
+    ['floral-cascade-rose.png','floral-calla-gold.png'],
+    ['floral-cascade-ivory.png','floral-calla-rose.png'],
+    ['floral-cascade-gold.png','floral-calla-rose.png']
   ];
-  const spots=[{c:'left:-12px;top:-6px;',m:0},{c:'right:-12px;top:-6px;',m:1}];
-  const lay=[
-    {c:'left:0;top:0;',w:'116px',r:'-9deg'},
-    {c:'left:14px;top:128px;',w:'48px',r:'16deg'},
-    {c:'left:102px;top:80px;',w:'44px',r:'-20deg'}
+  const spots=[
+    {c:'left:-8px;top:-6px;',lay:[{p:'left:-24px;top:-2px;',w:'50px',r:'-10deg',fl:0},{p:'left:-8px;top:56px;',w:'26px',r:'16deg',fl:0}]},
+    {c:'right:-8px;top:-6px;',lay:[{p:'right:-24px;top:-2px;',w:'50px',r:'10deg',fl:1},{p:'right:-8px;top:56px;',w:'26px',r:'-16deg',fl:1}]}
   ];
   ['home','pembuka','mempelai','tanggal','love-story','acara','ucapan','penutup'].forEach((id,si)=>{
     const sec=document.getElementById(id);if(!sec)return;
@@ -394,20 +392,20 @@
     const set=sets[si%sets.length];
     spots.forEach((sp,pi)=>{
       const box=document.createElement('div');box.className='spray';box.setAttribute('aria-hidden','true');
-      box.style.cssText=sp.c+(sp.m?'scale:-1 1;':'')+'animation-duration:'+(7+pi*2)+'s;animation-delay:'+(-(pi*2.2))+'s;';
-      lay.forEach((L,i)=>{
+      box.style.cssText=sp.c+'animation-duration:'+(7+pi*2)+'s;animation-delay:'+(-(pi*2.2))+'s;';
+      sp.lay.forEach((L,i)=>{
         const img=document.createElement('img');img.alt='';
         img.src='assets/'+set[i];
-        img.style.cssText=L.c+'width:'+L.w+';transform:rotate('+L.r+');';
+        img.style.cssText=L.p+'width:'+L.w+';transform:rotate('+L.r+')'+(L.fl?' scaleX(-1)':'')+';';
         box.appendChild(img);
       });
       sec.appendChild(box);
     });
     const rope=document.createElementNS('http://www.w3.org/2000/svg','svg');
     rope.setAttribute('class','rope');
-    rope.setAttribute('viewBox','0 0 480 52');
+    rope.setAttribute('viewBox','0 0 480 30');
     rope.setAttribute('aria-hidden','true');
-    rope.innerHTML='<path d="M34 16 Q240 45 446 16" fill="none" stroke="rgba(223,197,132,.4)" stroke-width="7" stroke-linecap="round"/><path d="M34 16 Q240 45 446 16" fill="none" stroke="#cfae68" stroke-width="2.4" stroke-linecap="round"/><circle cx="240" cy="40" r="3.4" fill="#e7cd8a"/><path d="M240 44 L240 50" stroke="#cfae68" stroke-width="1.6" stroke-linecap="round"/>';
+    rope.innerHTML='<path d="M34 12 Q240 26 446 12" fill="none" stroke="rgba(223,197,132,.35)" stroke-width="5" stroke-linecap="round"/><path d="M34 12 Q240 26 446 12" fill="none" stroke="#cfae68" stroke-width="2" stroke-linecap="round"/><circle cx="240" cy="24" r="2.6" fill="#e7cd8a"/>';
     sec.appendChild(rope);
   });
 })();
