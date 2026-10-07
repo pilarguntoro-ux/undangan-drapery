@@ -294,76 +294,27 @@
     catch{status.textContent='Ucapan tampil sementara. Browser tidak mengizinkan penyimpanan di perangkat ini.';}
     renderWishes();document.getElementById('guest-wish').value='';
   });
-  // Upgrade existing semantic content in place: the full section is the emerging letter.
-  const letterDefinitions=[['home','Beranda'],['pembuka','Pembuka'],['mempelai','Mempelai'],['tanggal','Save the date'],['love-story','Love Story'],['acara','Acara'],['ucapan','Ucapan'],['penutup','Terima kasih']];
-  const letterScenes=new Map();
-  const letterTimers=new Map();
+  // Continuous connected flow: sections fade and rise in as they scroll into view.
   const instantMotion=()=>reduced.matches||document.body.classList.contains('motion-paused');
-  function finishLetter(scene){
-    clearTimeout(letterTimers.get(scene));letterTimers.delete(scene);
-    scene.dataset.letterState='open';
-    scene.querySelector('.letter-paper').inert=false;
-    scene.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible'));
-  }
-  function playLetter(scene,replay=false){
-    if(!cover.hidden || (!replay && scene.dataset.letterState!=='sealed'))return;
-    clearTimeout(letterTimers.get(scene));
-    scene.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible'));
-    if(instantMotion()){finishLetter(scene);return;}
-    scene.dataset.letterState='sealed';
-    scene.querySelector('.letter-paper').inert=true;
-    // Flush just this scene; replay must restart even on repeated navigation taps.
-    void scene.offsetWidth;
-    scene.dataset.letterState='opening';
-    letterTimers.set(scene,setTimeout(()=>finishLetter(scene),2000));
-  }
-  letterDefinitions.forEach(([id,label],index)=>{
-    const content=document.getElementById(id);
-    if(!content)return;
-    const scene=document.createElement('div');scene.className='letter-scene';scene.id=id;scene.dataset.letterState='sealed';scene.dataset.letterTitle=label;
-    const paper=document.createElement('div');paper.className='letter-paper';paper.inert=true;
-    content.id=id+'-content';content.before(scene);paper.append(content);scene.append(paper);
-    const envelope=document.createElement('div');envelope.className='section-envelope';envelope.setAttribute('aria-hidden','true');
-    const envelopeFront=document.createElement('div');envelopeFront.className='section-envelope-front';envelopeFront.setAttribute('aria-hidden','true');
-    const layers={'pocket-back':'envelope-back.png','pocket-flap':'envelope-flap.png','pocket-fold':'envelope-front.png','pocket-seal':'wax-gold.png'};
-    Object.entries(layers).forEach(([className,file])=>{
-      const part=document.createElement('img');part.className=className;part.src='assets/'+file;part.alt='';
-      (['pocket-back','pocket-flap'].includes(className)?envelope:envelopeFront).append(part);
-    });
-    const labelElement=document.createElement('span');labelElement.className='pocket-label';labelElement.textContent=label;envelopeFront.append(labelElement);
-    scene.append(envelope,envelopeFront);letterScenes.set(id,scene);
-    if(reduced.matches)finishLetter(scene);
-    paper.addEventListener('animationend',event=>{if(event.target===paper&&event.animationName==='letter-emerge')finishLetter(scene);});
-  });
-  function revealVisibleLetters(){
-    if(!cover.hidden)return;
-    letterScenes.forEach(scene=>{
-      const rect=scene.getBoundingClientRect();
-      if(rect.top<innerHeight*.86&&rect.bottom>80)playLetter(scene);
-    });
-  }
-  if('IntersectionObserver' in window){
-    const letterObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)playLetter(entry.target);}),{rootMargin:'0px 0px -10% 0px',threshold:0});
-    letterScenes.forEach(scene=>letterObserver.observe(scene));
+  function showSection(id){const el=document.getElementById(id);if(el)el.classList.add('visible');}
+  if('IntersectionObserver' in window && !reduced.matches){
+    const sectionObserver=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');sectionObserver.unobserve(entry.target);}});
+    },{rootMargin:'0px 0px -8% 0px',threshold:.08});
+    document.querySelectorAll('#invitation section, #invitation footer').forEach(s=>sectionObserver.observe(s));
   }else{
-    window.addEventListener('scroll',revealVisibleLetters,{passive:true});
+    document.querySelectorAll('#invitation section, #invitation footer').forEach(s=>s.classList.add('visible'));
   }
   nav.addEventListener('click',event=>{
     const link=event.target.closest('a[href^="#"]');if(!link)return;
-    const id=link.getAttribute('href').slice(1);const scene=letterScenes.get(id);if(!scene)return;
+    const id=link.getAttribute('href').slice(1);const target=document.getElementById(id);if(!target)return;
     event.preventDefault();
-    letterScenes.forEach(other=>{if(other!==scene&&other.dataset.letterState==='opening')finishLetter(other);});
-    window.scrollTo({top:scene.getBoundingClientRect().top+scrollY-24,behavior:'instant'});
+    window.scrollTo({top:target.getBoundingClientRect().top+scrollY-24,behavior:'smooth'});
     try{history.replaceState(null,'','#'+id);}catch{/* Local file previews can restrict history. */}
-    playLetter(scene,true);
     nav.querySelectorAll('a').forEach(a=>a.classList.toggle('active',a===link));
   });
-  motionToggle.addEventListener('click',()=>{
-    if(instantMotion())letterScenes.forEach(scene=>{if(scene.dataset.letterState==='opening')finishLetter(scene);});
-  });
   reduced.addEventListener('change',()=>{
-    if(reduced.matches)letterScenes.forEach(finishLetter);
-    revealVisibleLetters();
+    if(reduced.matches)document.querySelectorAll('#invitation section, #invitation footer').forEach(s=>s.classList.add('visible'));
   });
 
   let opening=false;
@@ -379,18 +330,17 @@
       window.scrollTo({top:0,behavior:'instant'});
       document.getElementById('hero-names').focus({preventScroll:true});
       opening=false;
-      // Cover already provides the first envelope reveal; avoid a second home intro.
-      finishLetter(letterScenes.get('home'));
-      revealVisibleLetters();
     };
-    if(instantMotion()){finishOpening();}
-    else{setTimeout(()=>cover.classList.add('is-leaving'),1350);setTimeout(finishOpening,2050);}
+    if(instantMotion()){showSection('home');finishOpening();}
+    else{
+      // Fade the cover out while the hero rises into place, so open -> content feels seamless.
+      setTimeout(()=>{cover.classList.add('is-leaving');showSection('home');},1350);
+      setTimeout(finishOpening,2300);
+    }
   }
   document.getElementById('open-envelope').addEventListener('click',openEnvelope);
   document.getElementById('open-hint').addEventListener('click',openEnvelope);
   document.getElementById('replay-envelope').addEventListener('click',()=>{
-    letterScenes.forEach(scene=>{clearTimeout(letterTimers.get(scene));scene.dataset.letterState='sealed';scene.querySelector('.letter-paper').inert=true;});
-    if(reduced.matches)letterScenes.forEach(finishLetter);
     cover.classList.remove('is-opening','is-leaving');cover.hidden=false;
     main.inert=true;nav.inert=true;document.body.classList.add('locked');
     document.getElementById('open-envelope').disabled=false;
@@ -405,10 +355,8 @@
   });
   if('IntersectionObserver' in window){
     document.body.classList.add('motion-ready');
-    const reveals=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');reveals.unobserve(entry.target);}}),{threshold:.1});
-    document.querySelectorAll('.reveal').forEach(el=>reveals.observe(el));
     const sections=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){document.querySelectorAll('.bottom-nav a').forEach(a=>a.classList.toggle('active',a.hash==='#'+entry.target.id));}}),{rootMargin:'-15% 0px -55% 0px'});
-    ['home','mempelai','acara','ucapan'].forEach(id=>sections.observe(document.getElementById(id)));
+    ['home','mempelai','acara','ucapan'].forEach(id=>{const el=document.getElementById(id);if(el)sections.observe(el);});
   }
 })();
 </script>
