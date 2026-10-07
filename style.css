@@ -140,3 +140,53 @@
 .motion-ready #invitation section,.motion-ready #invitation footer{opacity:0;transform:translateY(36px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
 .motion-ready #invitation section.visible,.motion-ready #invitation footer.visible{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.motion-ready #invitation section,.motion-ready #invitation footer{opacity:1!important;transform:none!important}}
+
+/* ===== Entrance & flow animations ===== */
+@keyframes rise-in{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes zoom-in{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
+/* Cover heading entrance on load */
+.cover-heading .eyebrow,.cover-heading h1,.cover-heading .cover-date{animation:rise-in .8s cubic-bezier(.16,1,.3,1) backwards}
+.cover-heading .eyebrow{animation-delay:.15s}
+.cover-heading h1{animation-delay:.3s}
+.cover-heading .cover-date{animation-delay:.45s}
+/* Hero entrance on envelope open */
+#home.enter .eyebrow{animation:rise-in .9s cubic-bezier(.16,1,.3,1) .1s backwards}
+#home.enter h2{animation:zoom-in 1s cubic-bezier(.16,1,.3,1) .2s backwards}
+#home.enter .hero-date{animation:rise-in .9s cubic-bezier(.16,1,.3,1) .34s backwards}
+#home.enter .lace-stationery{animation:zoom-in 1.1s cubic-bezier(.16,1,.3,1) .48s backwards}
+#home.enter .hero-note{animation:rise-in .9s cubic-bezier(.16,1,.3,1) .66s backwards}
+#home.enter .scroll-cue{animation:rise-in .9s cubic-bezier(.16,1,.3,1) .78s backwards}
+/* Love story timeline stagger */
+.motion-ready #love-story .timeline-item{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.motion-ready #love-story .timeline-item:nth-child(1){transition-delay:.08s}
+.motion-ready #love-story .timeline-item:nth-child(2){transition-delay:.22s}
+.motion-ready #love-story .timeline-item:nth-child(3){transition-delay:.36s}
+.motion-ready #love-story .timeline-item:nth-child(4){transition-delay:.5s}
+.motion-ready #love-story.visible .timeline-item{opacity:1;transform:none}
+/* Mempelai slide-in */
+.motion-ready #mempelai .person{opacity:0;transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1)}
+.motion-ready #mempelai .person.bride{transform:translateX(-44px)}
+.motion-ready #mempelai .person.groom{transform:translateX(44px);transition-delay:.18s}
+.motion-ready #mempelai.visible .person{opacity:1;transform:none}
+/* Countdown pop-in */
+.motion-ready #tanggal .countdown>div{opacity:0;transform:scale(.7);transition:opacity .45s ease,transform .55s cubic-bezier(.34,1.56,.64,1)}
+.motion-ready #tanggal .countdown>div:nth-child(2){transition-delay:.09s}
+.motion-ready #tanggal .countdown>div:nth-child(3){transition-delay:.18s}
+.motion-ready #tanggal .countdown>div:nth-child(4){transition-delay:.27s}
+.motion-ready #tanggal.visible .countdown>div{opacity:1;transform:scale(1)}
+/* Reduced motion fallback for inner staggers */
+@media(prefers-reduced-motion:reduce){.motion-ready #love-story .timeline-item,.motion-ready #mempelai .person,.motion-ready #tanggal .countdown>div{opacity:1!important;transform:none!important}}
+
+/* Pembuka & penutup lace reveal */
+.motion-ready #pembuka .lace-stationery,.motion-ready #penutup .lace-stationery{opacity:0;transform:scale(.94) translateY(14px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.motion-ready #pembuka.visible .lace-stationery,.motion-ready #penutup.visible .lace-stationery{opacity:1;transform:scale(1) translateY(0)}
+/* Acara cards reveal */
+.motion-ready #acara .event{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.motion-ready #acara.visible .event{opacity:1;transform:none}
+.motion-ready #acara .venue-art{opacity:0;transition:opacity .7s ease .2s}
+.motion-ready #acara.visible .venue-art{opacity:1}
+/* Wishes form reveal */
+.motion-ready #ucapan .form-shell{opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.motion-ready #ucapan.visible .form-shell{opacity:1;transform:none}
+/* Reduced motion fallback for new items */
+@media(prefers-reduced-motion:reduce){.motion-ready #pembuka .lace-stationery,.motion-ready #penutup .lace-stationery,.motion-ready #acara .event,.motion-ready #acara .venue-art,.motion-ready #ucapan .form-shell{opacity:1!important;transform:none!important}}

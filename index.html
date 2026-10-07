@@ -323,6 +323,7 @@
     opening=true;
     cover.classList.add('is-opening');
     document.getElementById('open-envelope').disabled=true;
+    const hero=document.getElementById('home');
     const finishOpening=()=>{
       cover.hidden=true;
       main.inert=false;nav.inert=false;
@@ -331,10 +332,10 @@
       document.getElementById('hero-names').focus({preventScroll:true});
       opening=false;
     };
-    if(instantMotion()){showSection('home');finishOpening();}
+    if(instantMotion()){showSection('home');if(hero)hero.classList.add('enter');finishOpening();}
     else{
       // Fade the cover out while the hero rises into place, so open -> content feels seamless.
-      setTimeout(()=>{cover.classList.add('is-leaving');showSection('home');},1350);
+      setTimeout(()=>{cover.classList.add('is-leaving');showSection('home');if(hero)hero.classList.add('enter');},1350);
       setTimeout(finishOpening,2300);
     }
   }
@@ -343,6 +344,7 @@
   document.getElementById('replay-envelope').addEventListener('click',()=>{
     cover.classList.remove('is-opening','is-leaving');cover.hidden=false;
     main.inert=true;nav.inert=true;document.body.classList.add('locked');
+    const hero=document.getElementById('home');if(hero)hero.classList.remove('enter');
     document.getElementById('open-envelope').disabled=false;
     document.getElementById('open-envelope').focus({preventScroll:true});
   });
