@@ -9,6 +9,7 @@ Undangan HTML mobile-first untuk **Aditya Puja Kisdinata & Pixel Cindy Laura Def
 - Alur bagian: Beranda → Pembuka (doa) → Mempelai → Save the date → **Love Story (timeline)** → Acara/lokasi → RSVP & Ucapan → Penutup.
 - Bagian **Our Love Story** berupa timeline 4 titik (2023 The First Meeting, 2026 We Found Each Other Again, The Proposal, And Now…) + kutipan penutup.
 - Bunga bergoyang pelan, kain bergerak halus, kelopak melayang. Tombol jeda dan `prefers-reduced-motion` didukung.
+- Musik latar `assets/bgm.mp3` ("Nothing's Gonna Change My Love for You" – George Benson) dengan tombol putar/jeda melayang di pojok kanan atas.
 - Nama tamu dari `?to=Bapak+Guntoro`; input memakai `textContent`, dibatasi panjangnya.
 - Countdown, kalender ICS, ucapan `localStorage` dengan validasi dan fallback.
 - Tidak ada backend, analytics, atau kredensial.

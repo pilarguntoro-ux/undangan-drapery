@@ -129,3 +129,10 @@
     .timeline-card h4 { font-size: 22px; }
     .story-quote .story-names { font-size: 28px; }
 }
+.music-toggle{position:fixed;z-index:120;top:12px;right:max(12px,calc((100vw - 452px)/2));width:44px;height:44px;display:grid;place-items:center;background:#112419cc;border:1px solid #cab67d4d;border-radius:50%;color:#eddcbb;box-shadow:0 4px 14px #0006}
+.music-toggle svg{width:20px;height:20px}
+.music-toggle .music-on{display:none}
+.music-toggle.playing .music-on{display:block}
+.music-toggle.playing .music-off{display:none}
+.music-toggle.playing{animation:music-pulse 2.2s ease-out infinite}
+@keyframes music-pulse{0%{box-shadow:0 0 0 0 rgba(223,197,132,.55)}70%{box-shadow:0 0 0 9px rgba(223,197,132,0)}100%{box-shadow:0 0 0 0 rgba(223,197,132,0)}}
