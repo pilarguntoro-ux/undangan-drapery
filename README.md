@@ -5,7 +5,10 @@ Undangan pernikahan HTML statis, mobile-first. Desain maroon, emerald green, ivo
 ## Desain
 
 - Amplop CSS dengan segel emas, flap 3D, dan surat yang keluar saat dibuka.
-- Drapery SVG orisinal dengan lipatan kain, tieback, tassel, dan gerak pelan.
+- Drapery SVG orisinal berlapis velvet maroon–emerald, gold piping, beaded fringe, dan tassel yang berayun.
+- Setiap bagian **konten asli** keluar dari amplopnya: Beranda, Pembuka, Mempelai, Save the Date, Acara, Ucapan, dan Penutup. Bukan sekadar overlay judul/loading. Scroll memicu pembukaan pertama; ketuk navigasi mengulang animasinya.
+- Mawar ivory dan maroon, dedaunan bergerak, serta kelopak jatuh. Tombol jeda mengendalikan animasi.
+- Susunan kedalaman amplop: belakang/flap → kertas konten asli → kantong depan. Form tetap node yang sama sehingga draft tidak hilang saat pindah bagian.
 - Ilustrasi pengantin SVG beranimasi; **tidak menggunakan foto pengantin atau foto stok**.
 - Nama tamu dinamis: `?to=Bapak+Guntoro`.
 - Countdown, unduh kalender ICS dengan label CONTOH, dan navigasi bagian.
