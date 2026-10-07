@@ -232,9 +232,9 @@
   main.inert=true;nav.inert=true;
   const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
   const atmosphere=document.createElement('div');atmosphere.className='petal-atmosphere';atmosphere.setAttribute('aria-hidden','true');
-  for(let i=0;i<10;i++){
+  for(let i=0;i<18;i++){
     const petal=document.createElement('i');petal.className='falling-petal';
-    petal.style.cssText=`--x:${(i*37+7)%100}%;--size:${6+i%4*2}px;--duration:${14+i%5*3}s;--delay:${-i*2.7}s;`;
+    petal.style.cssText=`--x:${(i*23+11)%100}%;--size:${5+(i*7)%10}px;--duration:${10+(i*5)%9}s;--delay:${-(i*3.1)%17}s;`;
     atmosphere.append(petal);
   }
   document.body.append(atmosphere);
@@ -371,6 +371,26 @@
   btn.addEventListener('click',()=>{
     if(bgm.paused){bgm.play().then(()=>setState(true)).catch(()=>{});}
     else{bgm.pause();setState(false);}
+  });
+})();
+</script>
+<script>
+(() => {
+  const flowers=['assets/floral-calla.png','assets/floral-cascade.png','assets/floral-calla-gold.png','assets/floral-cascade-gold.png','assets/floral-calla-rose.png','assets/floral-cascade-rose.png','assets/floral-calla-ivory.png','assets/floral-cascade-ivory.png'];
+  ['home','pembuka','mempelai','tanggal','love-story','acara','ucapan','penutup'].forEach((id,si)=>{
+    const sec=document.getElementById(id);if(!sec)return;
+    if(getComputedStyle(sec).position==='static')sec.style.position='relative';
+    [
+      {css:'left:-12px;top:12%;',w:'66px',r:'-15deg',f:0},
+      {css:'right:-14px;top:34%;',w:'76px',r:'20deg',f:1},
+      {css:'right:-10px;bottom:11%;',w:'58px',r:'-8deg',f:0},
+      {css:'left:-8px;bottom:16%;',w:'54px',r:'14deg',f:1}
+    ].forEach((s,i)=>{
+      const img=document.createElement('img');img.className='bloom';img.alt='';
+      img.src=flowers[(si*3+i*2+1)%flowers.length];
+      img.style.cssText=s.css+'width:'+s.w+';transform:rotate('+s.r+')'+(s.f?' scaleX(-1)':'')+';animation-duration:'+(7+i%4)+'s;animation-delay:'+(-(i*1.7))+'s;';
+      sec.appendChild(img);
+    });
   });
 })();
 </script>
