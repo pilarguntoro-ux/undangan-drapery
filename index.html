@@ -377,14 +377,14 @@
 <script>
 (() => {
   const sets=[
-    ['floral-cascade-gold.png','floral-calla-ivory.png'],
-    ['floral-cascade-rose.png','floral-calla-gold.png'],
-    ['floral-cascade-ivory.png','floral-calla-rose.png'],
-    ['floral-cascade-gold.png','floral-calla-rose.png']
+    ['floral-cascade-gold.png','floral-calla-ivory.png','floral-calla-rose.png'],
+    ['floral-cascade-rose.png','floral-calla-gold.png','floral-calla-ivory.png'],
+    ['floral-cascade-ivory.png','floral-calla-rose.png','floral-calla-gold.png'],
+    ['floral-cascade-gold.png','floral-calla-rose.png','floral-cascade-ivory.png']
   ];
   const spots=[
-    {c:'left:-6px;top:-8px;',lay:[{p:'left:-16px;top:-8px;',w:'64px',r:'-9deg',fl:0},{p:'left:-4px;top:60px;',w:'34px',r:'15deg',fl:0}]},
-    {c:'right:-6px;top:-8px;',lay:[{p:'right:-16px;top:-8px;',w:'64px',r:'9deg',fl:1},{p:'right:-4px;top:60px;',w:'34px',r:'-15deg',fl:1}]}
+    {c:'left:-6px;top:-8px;',lay:[{p:'left:-40px;top:-6px;',w:'90px',r:'-9deg',fl:0},{p:'left:-4px;top:96px;',w:'44px',r:'15deg',fl:0},{p:'left:22px;top:58px;',w:'34px',r:'-16deg',fl:0}]},
+    {c:'right:-6px;top:-8px;',lay:[{p:'right:-40px;top:-6px;',w:'90px',r:'9deg',fl:1},{p:'right:-4px;top:96px;',w:'44px',r:'-15deg',fl:1},{p:'right:22px;top:58px;',w:'34px',r:'16deg',fl:1}]}
   ];
   ['home','pembuka','mempelai','tanggal','love-story','acara','ucapan','penutup'].forEach((id,si)=>{
     const sec=document.getElementById(id);if(!sec)return;
