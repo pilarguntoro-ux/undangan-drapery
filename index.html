@@ -382,7 +382,7 @@
     ['floral-cascade-ivory.png','floral-calla-rose.png','floral-calla-gold.png'],
     ['floral-cascade-gold.png','floral-calla-rose.png','floral-cascade-ivory.png']
   ];
-  const spots=[{c:'left:-10px;top:-6px;',m:0},{c:'right:-10px;bottom:-6px;',m:1}];
+  const spots=[{c:'left:-12px;top:-6px;',m:0},{c:'right:-12px;top:-6px;',m:1}];
   const lay=[
     {c:'left:0;top:0;',w:'116px',r:'-9deg'},
     {c:'left:14px;top:128px;',w:'48px',r:'16deg'},
@@ -403,6 +403,12 @@
       });
       sec.appendChild(box);
     });
+    const rope=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    rope.setAttribute('class','rope');
+    rope.setAttribute('viewBox','0 0 480 52');
+    rope.setAttribute('aria-hidden','true');
+    rope.innerHTML='<path d="M34 16 Q240 45 446 16" fill="none" stroke="rgba(223,197,132,.4)" stroke-width="7" stroke-linecap="round"/><path d="M34 16 Q240 45 446 16" fill="none" stroke="#cfae68" stroke-width="2.4" stroke-linecap="round"/><circle cx="240" cy="40" r="3.4" fill="#e7cd8a"/><path d="M240 44 L240 50" stroke="#cfae68" stroke-width="1.6" stroke-linecap="round"/>';
+    sec.appendChild(rope);
   });
 })();
 </script>
