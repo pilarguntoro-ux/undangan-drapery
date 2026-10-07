@@ -1,27 +1,25 @@
 # The Wedding — Emerald Velvet & Maroon
 
-Undangan HTML mobile-first. Desain dibangun ulang mengikuti komposisi video acuan pengguna: tirai emerald sepanjang layar, amplop maroon miring dengan tepi scalloped dan wax seal emas, renda oval ivory, bunga bertekstur fotografis, panel maroon–emerald, dan cameo pengantin berselang kiri/kanan.
-
-**Status: demo desain.** Nama, tanggal, waktu, orang tua, dan lokasi bukan data pernikahan sebenarnya. RSVP/ucapan hanya tersimpan di browser perangkat yang sama.
+Undangan HTML mobile-first untuk **Aditya Puja Kisdinata & Pixel Cindy Laura Deffana** (29.11.2026). Tirai emerald sepanjang layar, amplop maroon berscalloped + wax seal emas, renda oval ivory, bunga fotografis, panel maroon–emerald, dan cameo pengantin berselang kiri/kanan.
 
 ## Desain dan interaksi
 
-- Tirai dan bunga bukan lagi gambar vektor datar. Material visual memakai aset raster lokal; sumber tekstur, renda, bunga, serta segel diolah dari video acuan yang diberikan pengguna. Tidak ada portrait, nama orang, nomor rekening, watermark platform, atau logo studio dalam aset undangan.
-- Lapisan kertas amplop dibuat terpisah: belakang → surat/konten asli → kantong depan; flap membuka secara 3D dan seal terlepas. Semua bagian konten memiliki efek keluar amplop saat scroll pertama/menu diklik. Beranda pertama dibuka langsung dari cover agar tidak terjadi dua animasi amplop berturut-turut.
-- Kedua mempelai tetap **ilustrasi SVG beranimasi, bukan foto orang**, dalam bingkai emas.
+- Material visual memakai aset raster lokal (tekstur, renda, bunga, segel, foto pengantin) — tanpa portrait orang sungguhan di cameo, tanpa watermark platform/logo studio.
+- Amplop pembuka: belakang → surat → kantong depan; flap membuka 3D dan seal terlepas. Setiap bagian konten juga dibungkus amplop tersendiri (letter scene) yang terbuka saat scroll pertama / menu diklik.
+- Alur bagian: Beranda → Pembuka (doa) → Mempelai → Save the date → **Love Story (timeline)** → Acara/lokasi → RSVP & Ucapan → Penutup.
+- Bagian **Our Love Story** berupa timeline 4 titik (2023 The First Meeting, 2026 We Found Each Other Again, The Proposal, And Now…) + kutipan penutup.
 - Bunga bergoyang pelan, kain bergerak halus, kelopak melayang. Tombol jeda dan `prefers-reduced-motion` didukung.
-- Nama tamu dari `?to=Bapak+Guntoro`; input menggunakan `textContent` dan dibatasi panjangnya.
-- Countdown, kalender ICS berlabel CONTOH, ucapan localStorage dengan validasi dan fallback.
-- Node form dipertahankan saat animasi/menu berubah sehingga draft tidak hilang.
+- Nama tamu dari `?to=Bapak+Guntoro`; input memakai `textContent`, dibatasi panjangnya.
+- Countdown, kalender ICS, ucapan `localStorage` dengan validasi dan fallback.
 - Tidak ada backend, analytics, atau kredensial.
 
 ## Menjalankan
 
-Buka `index.html`, atau `python -m http.server 8000`. Tidak perlu build. CSS dan JavaScript berada di HTML, gambar lokal di `assets/`, font dari Google Fonts (dengan fallback).
+Buka `index.html`, atau `python -m http.server 8000`. Tidak perlu build. CSS terpisah di `style.css`, JavaScript inline di `index.html`, gambar di `assets/`, font dari Google Fonts (dengan fallback).
 
 ## Personalisasi
 
-Ubah nama, judul, tanggal, waktu, orang tua, alamat. Sinkronkan `eventTime` dan konten `calendar` di JavaScript. Data tanggal demo: 12 Desember 2027, WIB. Tambahkan peta setelah alamat benar diisi. Backend RSVP dan rekening hadiah sengaja tidak diisi dengan data rekaan.
+Ubah nama, judul, tanggal, waktu, orang tua, alamat, dan isi timeline Love Story. Sinkronkan `eventTime` dan konten `calendar` di JavaScript. Tautan peta ditambahkan setelah alamat asli diisi. Backend RSVP dan rekening hadiah sengaja tidak diisi dengan data rekaan.
 
 ## Publikasi
 
