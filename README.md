@@ -1,36 +1,28 @@
-# Sepucuk Janji — Drapery Collection
+# The Wedding — Emerald Velvet & Maroon
 
-Undangan pernikahan HTML statis, mobile-first. Desain maroon, emerald green, ivory, dan antique gold. Dibuat sebagai **demo desain**: nama, orang tua, tanggal, waktu, dan lokasi belum merupakan data pengantin sebenarnya.
+Undangan HTML mobile-first. Desain dibangun ulang mengikuti komposisi video acuan pengguna: tirai emerald sepanjang layar, amplop maroon miring dengan tepi scalloped dan wax seal emas, renda oval ivory, bunga bertekstur fotografis, panel maroon–emerald, dan cameo pengantin berselang kiri/kanan.
 
-## Desain
+**Status: demo desain.** Nama, tanggal, waktu, orang tua, dan lokasi bukan data pernikahan sebenarnya. RSVP/ucapan hanya tersimpan di browser perangkat yang sama.
 
-- Amplop CSS dengan segel emas, flap 3D, dan surat yang keluar saat dibuka.
-- Drapery SVG orisinal berlapis velvet maroon–emerald, gold piping, beaded fringe, dan tassel yang berayun.
-- Setiap bagian **konten asli** keluar dari amplopnya: Beranda, Pembuka, Mempelai, Save the Date, Acara, Ucapan, dan Penutup. Bukan sekadar overlay judul/loading. Scroll memicu pembukaan pertama; ketuk navigasi mengulang animasinya.
-- Mawar ivory dan maroon, dedaunan bergerak, serta kelopak jatuh. Tombol jeda mengendalikan animasi.
-- Susunan kedalaman amplop: belakang/flap → kertas konten asli → kantong depan. Form tetap node yang sama sehingga draft tidak hilang saat pindah bagian.
-- Ilustrasi pengantin SVG beranimasi; **tidak menggunakan foto pengantin atau foto stok**.
-- Nama tamu dinamis: `?to=Bapak+Guntoro`.
-- Countdown, unduh kalender ICS dengan label CONTOH, dan navigasi bagian.
-- Form RSVP/ucapan merupakan pratinjau lokal: hanya tersimpan di browser perangkat yang sama, bukan database publik dan bukan konfirmasi kepada pengantin.
-- Hormati pengaturan `prefers-reduced-motion`.
+## Desain dan interaksi
+
+- Tirai dan bunga bukan lagi gambar vektor datar. Material visual memakai aset raster lokal; sumber tekstur, renda, bunga, serta segel diolah dari video acuan yang diberikan pengguna. Tidak ada portrait, nama orang, nomor rekening, watermark platform, atau logo studio dalam aset undangan.
+- Lapisan kertas amplop dibuat terpisah: belakang → surat/konten asli → kantong depan; flap membuka secara 3D dan seal terlepas. Semua bagian konten memiliki efek keluar amplop saat scroll pertama/menu diklik. Beranda pertama dibuka langsung dari cover agar tidak terjadi dua animasi amplop berturut-turut.
+- Kedua mempelai tetap **ilustrasi SVG beranimasi, bukan foto orang**, dalam bingkai emas.
+- Bunga bergoyang pelan, kain bergerak halus, kelopak melayang. Tombol jeda dan `prefers-reduced-motion` didukung.
+- Nama tamu dari `?to=Bapak+Guntoro`; input menggunakan `textContent` dan dibatasi panjangnya.
+- Countdown, kalender ICS berlabel CONTOH, ucapan localStorage dengan validasi dan fallback.
+- Node form dipertahankan saat animasi/menu berubah sehingga draft tidak hilang.
+- Tidak ada backend, analytics, atau kredensial.
 
 ## Menjalankan
 
-Buka `index.html` langsung, atau jalankan:
+Buka `index.html`, atau `python -m http.server 8000`. Tidak perlu build. CSS dan JavaScript berada di HTML, gambar lokal di `assets/`, font dari Google Fonts (dengan fallback).
 
-```sh
-python -m http.server 8000
-```
+## Personalisasi
 
-Tidak ada build step. CSS, JavaScript, dan ilustrasi berada di `index.html`. Font memakai Google Fonts dengan fallback lokal. Tidak ada analytics, kredensial, foto, atau backend.
-
-## Mengisi data sebenarnya
-
-Edit nama singkat, nama lengkap, nama orang tua, monogram pada segel/surat, judul halaman, tanggal, waktu, dan alamat di HTML. Sinkronkan `eventTime` dan isi `calendar` di JavaScript saat mengubah tanggal. Tanggal demo: 12 Desember 2027, waktu WIB. Jangan menghapus penanda demo sebelum seluruh data telah diganti dan diverifikasi. Isi lokasi yang benar sebelum menambahkan tombol peta.
-
-Backend RSVP dan rekening hadiah sengaja tidak diisi dengan data rekaan.
+Ubah nama, judul, tanggal, waktu, orang tua, alamat. Sinkronkan `eventTime` dan konten `calendar` di JavaScript. Data tanggal demo: 12 Desember 2027, WIB. Tambahkan peta setelah alamat benar diisi. Backend RSVP dan rekening hadiah sengaja tidak diisi dengan data rekaan.
 
 ## Publikasi
 
-GitHub Pages dari branch `main`, direktori root `/`. `.nojekyll` disertakan. Repo ini terpisah dari undangan sebelumnya.
+GitHub Pages: branch `main`, root `/`, `.nojekyll`. Versi sebelumnya tersimpan dalam riwayat Git. Video sumber dan alat QA tidak dipublikasikan.
